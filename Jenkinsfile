@@ -2,6 +2,7 @@ pipeline {
     agent any
     environment{
         DOCKER_TAG = getDockerTag()
+        dockerHubPwd= getdockerHubpwd()
     }
     stages{
         stage('Build Docker Image'){
