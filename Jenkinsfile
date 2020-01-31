@@ -6,14 +6,14 @@ pipeline {
     stages{
         stage('Build Docker Image'){
             steps{
-                sh "docker build . -t kammana/nodeapp:${DOCKER_TAG} "
+                sh "docker build . -t anilkublepuli/vprofile:${DOCKER_TAG} "
             }
         }
         stage('DockerHub Push'){
             steps{
                 withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerHubPwd')]) {
-                    sh "docker login -u kammana -p ${dockerHubPwd}"
-                    sh "docker push kammana/nodeapp:${DOCKER_TAG}"
+                    sh "docker login -u anilkublepuli -p ${dockerHubPwd}"
+                    sh "docker push anilkublepuli/vprofile:${DOCKER_TAG}"
                 }
             }
         }
@@ -25,9 +25,9 @@ pipeline {
                     sh "scp -o StrictHostKeyChecking=no services.yml node-app-pod.yml ec2-user@52.66.70.61:/home/ec2-user/"
                     script{
                         try{
-                            sh "ssh ec2-user@52.66.70.61 kubectl apply -f ."
+                            sh "ssh ubuntu@13.233.164.75 kubectl apply -f ."
                         }catch(error){
-                            sh "ssh ec2-user@52.66.70.61 kubectl create -f ."
+                            sh "ubuntu@13.233.164.75 kubectl create -f ."
                         }
                     }
                 }
