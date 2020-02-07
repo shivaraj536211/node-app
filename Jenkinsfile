@@ -6,14 +6,14 @@ pipeline {
     stages{
         stage('Build Docker Image'){
             steps{
-                sh "sudo docker build . -t anilkumblepuli/vprofile:${DOCKER_TAG} "
+                sh "sudo - S docker build . -t anilkumblepuli/vprofile:${DOCKER_TAG} "
             }
         }
         stage('DockerHub Push'){
             steps{
                 withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerHubPwd')]) {
-                    sh "sudo docker login -u anilkumblepuli -p ${dockerHubPwd}"
-                    sh "sudo docker push anilkumblepuli/vprofile:${DOCKER_TAG}"
+                    sh "sudo -S docker login -u anilkumblepuli -p ${dockerHubPwd}"
+                    sh "sudo -S docker push anilkumblepuli/vprofile:${DOCKER_TAG}"
                 }
             }
         }
