@@ -3,10 +3,10 @@ kind: Pod
 metadata:
   name: nodeapp1
   labels:
-    app: nodeapp
+    app: nodeapp1
 spec:
   containers:
-    - name: nodeapp
+    - name: nodeapp2
       image: anilkumblepuli/vprofile1:tagVersion
       ports:
         - containerPort: 8080
