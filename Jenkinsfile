@@ -6,7 +6,7 @@ pipeline {
     stages{
        stage('code cloning'){
          steps{
-            sh'git clone 'https://github.com/anilkumarpuli/node-app.git'
+            git 'https://github.com/anilkumarpuli/node-app.git'
                }
            }
          stage('code build by maven'){
