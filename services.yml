@@ -1,12 +1,15 @@
-kind: Service
+### vi vprofile-app-nodeport.yml
+{
 apiVersion: v1
+kind: Service
 metadata:
-  name: nodeapp6
+name: vproapp-service
 spec:
-  selector:
-    app: nodeapp2
-  ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 8080
-  type: LoadBalancer   
+ports:
+- port: 30001
+nodePort: 30001
+targetPort: vproapp-port
+protocol: TCP
+selector:
+app: node-app
+type: NodePort
