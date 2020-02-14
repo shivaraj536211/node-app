@@ -24,7 +24,7 @@ pipeline {
             steps{
                 withCredentials([string(credentialsId: 'dockerpasswD', variable: 'dockerpasswD')])   {
                     sh "docker login -u anilkumblepuli -p ${dockerpasswD}"
-                    sh "docker push anilkumblepuli/vprofile1:${DOCKER_TAG}"
+                    sh "docker push anilkumblepuli/vprofile2:${DOCKER_TAG}"
                 }
             }
         }
@@ -36,9 +36,9 @@ pipeline {
                     sh "scp -o StrictHostKeyChecking=no services.yml node-app-pod.yml ubuntu@13.127.160.112:/home/ubuntu/"
                     script{
                         try{
-                            sh "ssh ubuntu@13.127.160.112 kubectl apply -f ."
+                            sh "ssh ubuntu@52.66.160.84 kubectl apply -f ."
                         }catch(error){
-                            sh "ubuntu@13.127.160.112 kubectl create -f ."
+                            sh "ubuntu@52.66.160.84 kubectl create -f ."
                         }
                     }
                 }
