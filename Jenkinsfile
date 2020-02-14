@@ -17,7 +17,7 @@ pipeline {
         
         stage('Build Docker Image'){
             steps{
-                sh "docker build . -t anilkumblepuli/vprofile1:${DOCKER_TAG}"
+                sh "docker build . -t anilkumblepuli/vprofile2:${DOCKER_TAG}"
             }
         }
         stage('DockerHub Push'){
