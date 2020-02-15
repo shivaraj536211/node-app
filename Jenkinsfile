@@ -29,10 +29,9 @@ stages {
          }
       //}
         }
-
         stage('Build Docker Image'){
             steps{
-                sh "docker build . -t shivaraj536211/vprofile2:${DOCKER_TAG}"
+                sh "docker build . -t shivaraj536211/java2:${DOCKER_TAG}"
             }
         }
         stage('DockerHub Push'){
