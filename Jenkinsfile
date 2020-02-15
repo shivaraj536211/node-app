@@ -6,7 +6,7 @@ pipeline {
     stages{
        stage('code cloning'){
          steps{
-            git 'https://github.com/anilkumarpuli/node-app.git'
+            git 'https://github.com/shivaraj536211/node-app.git'
                }
            }
          stage('code build by maven'){
@@ -17,14 +17,14 @@ pipeline {
         
         stage('Build Docker Image'){
             steps{
-                sh "docker build . -t anilkumblepuli/vprofile2:${DOCKER_TAG}"
+                sh "docker build . -t shivaraj536211/vprofile2:${DOCKER_TAG}"
             }
         }
         stage('DockerHub Push'){
             steps{
-                withCredentials([string(credentialsId: 'dockerpasswD', variable: 'dockerpasswD')])   {
-                    sh "docker login -u anilkumblepuli -p ${dockerpasswD}"
-                    sh "docker push anilkumblepuli/vprofile2:${DOCKER_TAG}"
+                withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhub')])
+                    sh "docker login -u shivaraj536211 -p ${dockerpasswD}"
+                    sh "docker push shivaraj536211/vprofile2:${DOCKER_TAG}"
                 }
             }
         }
