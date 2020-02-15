@@ -1,20 +1,43 @@
 pipeline {
     agent any
-    environment{
-        DOCKER_TAG = getDockerTag()
+        environment {
+    registry = "shivaraj536211/gameoflife-image"
+    registryCredential = 'dockerhub'
+     }
+    agent any 
+    tools { 
+        maven 'maven' 
     }
-    stages{
-       stage('code cloning'){
-         steps{
+stages { 
+     
+ stage('Preparation') { 
+     steps {
+// for display purposes
+
+      // Get some code from a GitHub repository
             git 'https://github.com/shivaraj536211/node-app.git'
                }
            }
-         stage('code build by maven'){
-               steps{
-               sh'mvn install'
-           }
-          } 
-        
+         stage('Build') {
+       steps {
+       // Run the maven build
+
+      //if (isUnix()) {
+         sh 'mvn -Dmaven.test.failure.ignore=true install'
+      //} 
+      //else {
+      //   bat(/"${mvnHome}\bin\mvn" -Dmaven.test.failure.ignore clean package/)
+         }
+      //}
+       }
+ 
+         stage('Unit Test Results') {
+         steps {
+         junit '**/target/surefire-reports/TEST-*.xml'
+      
+         }
+        }
+
         stage('Build Docker Image'){
             steps{
                 sh "docker build . -t shivaraj536211/vprofile2:${DOCKER_TAG}"
