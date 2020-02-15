@@ -29,16 +29,18 @@ stages {
          }
       //}
         }
-        stage('Build Docker Image'){
-            steps{
-                sh "docker build . -t shivaraj536211/java2:${DOCKER_TAG}"
-            }
-        }
+            stage('Build and Push Docker Image') {
+      steps {
+        sh label: '', script: '''docker build -t profile-image2:$BUILD_NUMBER .
+                                 docker tag profile-image:$BUILD_NUMBER docker.io/shivaraj536211/profile-image2:$BUILD_NUMBER
+                                 docker push docker.io/shivaraj536211/profile-image2:$BUILD_NUMBER'''
+               }
+           }
         stage('DockerHub Push'){
             steps{
                 withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhub')]){
                     sh "docker login -u shivaraj536211 -p ${dockerpasswD}"
-                    sh "docker push shivaraj536211/vprofile2:${DOCKER_TAG}"
+                    sh "docker push shivaraj536211/profile-image2:${DOCKER_TAG}"
                 }
             }
         }
