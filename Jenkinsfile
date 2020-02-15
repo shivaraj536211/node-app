@@ -28,13 +28,6 @@ stages {
       //   bat(/"${mvnHome}\bin\mvn" -Dmaven.test.failure.ignore clean package/)
          }
       //}
-       }
- 
-         stage('Unit Test Results') {
-         steps {
-         junit '**/target/surefire-reports/TEST-*.xml'
-      
-         }
         }
 
         stage('Build Docker Image'){
